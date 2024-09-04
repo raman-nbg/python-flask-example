@@ -28,8 +28,8 @@ class AzureJWTValidator(JWTBearerTokenValidator):
             'iss': {'essential': True, 'validate': self.validate_iss},
             'exp': {'essential': True},
             'aud': {'essential': True, 'value': self.resource_server},
-            'sub': {'essential': True},
-            'client_id': {'essential': False},
+            'sub': {'essential': False}, # Override default for client_credentials based authentication
+            'client_id': {'essential': False}, # Override default as not supported by Azure AD
             'iat': {'essential': True},
             'jti': {'essential': False},
             'auth_time': {'essential': False},
