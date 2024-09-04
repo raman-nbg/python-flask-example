@@ -1,0 +1,77 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/MOHAMMEDSHARAF1992/test/1.0.0
+info:
+  version: "1.0.0"
+  title: Sample Application Flow OAuth2 Project
+  description: >-
+    This is an example of using OAuth2 Application Flow in a specification to
+    describe security to your API.
+
+paths:
+  /dataassets:
+    get:
+      summary: Get all data assets of the data product
+      description: Get all data assets of the data product
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Dataasset"
+        "401":
+          description: Unauthorized
+  /dataassets/{dataAssetName}/datacontracts:
+    post:
+      summary: Request / Create a data contract
+      description: Request / Create a data contract granting access to a data asset
+      parameters:
+        - name: dataAssetName
+          schema:
+            type: string
+          in: path
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              items:
+                $ref: "#/components/schemas/Datacontract"
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+
+components:
+  schemas:
+    Datacontract:
+      type: object
+      properties:
+        consumerProduct:
+          type: object
+          properties:
+            name:
+              type: string
+            responsibleContact:
+              type: string
+    Dataasset:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Chemicals"
+        status:
+          type: string
+          enum:
+            - InDevelopment
+            - Released
+            - Deprecated
